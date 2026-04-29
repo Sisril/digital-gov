@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Digital Government · Ilmu Pemerintahan Untad</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #080b18;
+  --bg2:       #0d1120;
+  --card:      #111527;
+  --card2:     #161b30;
+  --border:    rgba(255,255,255,0.07);
+  --border2:   rgba(255,255,255,0.12);
+  --accent:    #7c5dfa;
+  --accent2:   #9b80fb;
+  --accent-bg: rgba(124,93,250,0.15);
+  --a-color:   #5b8df5;
+  --a-bg:      rgba(91,141,245,0.15);
+  --c-color:   #8b5cf6;
+  --c-bg:      rgba(139,92,246,0.15);
+  --text:      #e8eaf0;
+  --muted:     #6b7280;
+  --faint:     #3d4358;
+  --stat-num:  #ffffff;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+
+/* ── HERO ── */
+.hero {
+  padding: 2.5rem 2rem 2rem;
+}
+.hero h1 {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+.hero p {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 560px;
+  line-height: 1.65;
+}
+
+/* ── STATS ROW ── */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  padding: 0 2rem 2rem;
+}
+.stat-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.1rem 1.3rem;
+}
+.stat-num {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--stat-num);
+  line-height: 1;
+  margin-bottom: 6px;
+  display: block;
+}
+.stat-label {
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── SEARCH BAR ── */
+.search-bar {
+  padding: 0 2rem 1.5rem;
+}
+.search-wrap {
+  position: relative;
+  max-width: 360px;
+}
+.search-icon {
+  position: absolute;
+  left: 12px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--faint);
+  font-size: 16px;
+  pointer-events: none;
+}
+.search-input {
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  padding: 9px 14px 9px 36px;
+  border-radius: 9px;
+  border: 1px solid var(--border2);
+  background: var(--card);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.search-input:focus { border-color: var(--accent); }
+.search-input::placeholder { color: var(--faint); }
+
+/* ── MAIN GRID (two columns: A | C) ── */
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  padding: 0 2rem 4rem;
+  column-gap: 2rem;
+}
+
+.kelas-col {}
+
+.col-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.kelas-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 100px;
+}
+.badge-a { background: var(--a-bg); color: var(--a-color); border: 1px solid rgba(91,141,245,0.3); }
+.badge-c { background: var(--c-bg); color: var(--c-color); border: 1px solid rgba(139,92,246,0.3); }
+.col-count { font-size: 13px; color: var(--muted); }
+
+/* cards grid inside each column */
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* ── CARD ── */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.18s, transform 0.18s;
+  animation: fadeUp 0.3s ease both;
+}
+.card:hover {
+  border-color: var(--border2);
+  transform: translateY(-3px);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* screenshot placeholder */
+.screenshot {
+  height: 150px;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255,255,255,0.02) 0px,
+      rgba(255,255,255,0.02) 2px,
+      transparent 2px,
+      transparent 10px
+    ),
+    var(--card2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+  position: relative;
+}
+.screenshot-icon {
+  width: 34px; height: 28px;
+  border-radius: 5px;
+  border: 1.5px solid var(--faint);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0.45;
+}
+.screenshot-icon svg { width: 14px; height: 14px; fill: var(--muted); }
+.screenshot-lbl {
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+/* card body */
+.card-body {
+  padding: 0.85rem 1rem 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+.card-num {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+.card-title {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.3;
+  margin-bottom: 9px;
+}
+
+.class-circle {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700;
+  flex-shrink: 0;
+}
+.circle-a { background: var(--a-bg); color: var(--a-color); }
+.circle-c { background: var(--c-bg); color: var(--c-color); }
+
+.members {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  margin-bottom: 10px;
+}
+.member {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.member-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--faint);
+  flex-shrink: 0;
+}
+
+.card-footer {
+  border-top: 1px solid var(--border);
+  padding-top: 9px;
+  margin-top: auto;
+}
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--accent2);
+  text-decoration: none;
+  background: var(--accent-bg);
+  border: 1px solid rgba(124,93,250,0.25);
+  border-radius: 6px;
+  padding: 4px 10px;
+  transition: all 0.14s;
+  max-width: 100%;
+  overflow: hidden;
+}
+.link-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.link-btn-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.link-btn svg { width: 9px; height: 9px; flex-shrink: 0; }
+
+/* ── EMPTY ── */
+.empty {
+  grid-column: 1/-1;
+  text-align: center;
+  padding: 4rem;
+  color: var(--muted);
+}
+.empty p:first-child { font-size: 1.1rem; font-weight: 600; color: var(--faint); margin-bottom: 6px; }
+
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .stats-row { grid-template-columns: repeat(3, 1fr); }
+  .main-grid { grid-template-columns: 1fr; row-gap: 2.5rem; }
+}
+@media (max-width: 600px) {
+  .topbar, .hero, .stats-row, .search-bar, .main-grid { padding-left: 1rem; padding-right: 1rem; }
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 1.5rem; }
+}
+@media (max-width: 380px) {
+  .stats-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Proyek Layanan Digital Mahasiswa</h1>
+  <p>Kumpulan website layanan digital yang dikembangkan peserta kuliah Digital Government</p>
+</section>
+
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat-box">
+    <span class="stat-num">23</span>
+    <span class="stat-label">Total Kelompok</span>
+  </div>
+  <div class="stat-box">
+    <span class="stat-num">2</span>
+    <span class="stat-label">Kelas</span>
+  </div>
+  <div class="stat-box">
+    <span class="stat-num">13</span>
+    <span class="stat-label">Kelompok Kelas A</span>
+  </div>
+  <div class="stat-box">
+    <span class="stat-num">10</span>
+    <span class="stat-label">Kelompok Kelas C</span>
+  </div>
+  <div class="stat-box">
+    <span class="stat-num" id="activeCount">23</span>
+    <span class="stat-label">Website Aktif</span>
+  </div>
+</div>
+
+<!-- SEARCH -->
+<div class="search-bar">
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input type="text" class="search-input" id="searchInput"
+           placeholder="Cari nama anggota atau kelompok…" oninput="render()">
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-grid" id="mainGrid"></div>
+
+
+<script>
+// ── DATA ────────────────────────────────────────────────────────────────────
+const DATA = {
+  A: [
+    { no:1,  title:'Palu Pi Smart',           members:['Yogi Potaka'],                                                           url:'https://sites.google.com/view/palupismart/portofolio/refleksi-kelompok' },
+    { no:2,  title:'Kelurahan Baru',           members:['Ni Ketut Andeni','Imam Zulabchri B.','Siti Sarah'],                      url:'https://sites.google.com/view/kelurahan-baru/halaman-muka' },
+    { no:3,  title:'Desa Kabobona',            members:['B 401 24 002','B 401 24 021'],                                            url:'https://sites.google.com/view/desakabobona/profil-kelompok' },
+    { no:4,  title:'Kelurahan Tanamodindi',    members:['Sabda Destiana','Zahwa Qairrunissa Budi','Zuhria Syaidah'],              url:'https://sites.google.com/view/kelurahan-tanamodindi/profil/profil-kelompok' },
+    { no:5,  title:'Kelurahan Poboya',         members:['Mutiara','Aling',"Dinda Triana As'ad"],                                  url:'https://sites.google.com/view/kelurahanpoboya/kelompok' },
+    { no:6,  title:'Fix Paku',                 members:['Zaskia Amalia','Bahrul Amin','Moh. Yasin Zulhamdi'],                     url:'https://sites.google.com/view/fixpaku/beranda' },
+    { no:7,  title:'Talise Valangguni',        members:['Habib Variq','Syarianti','Dimas Kurniawan'],                             url:'https://sites.google.com/view/talisevalangguni/portofolio/beranda' },
+    { no:8,  title:'Desa Wani',                members:['Mery','Haikal T. Lamboka','Iqlima'],                                     url:'https://sites.google.com/view/desawani/beranda' },
+    { no:9,  title:'Kelurahan Taiparamba',     members:['Miranti','Intan Audy','Sahara'],                                         url:'https://sites.google.com/view/kelurahan-taiparamba/kelompok' },
+    { no:10, title:'Kelurahan Lolu Utara',     members:['Cristo Sentris Legarano','Arthur Geraldi Bantulu'],                      url:'https://sites.google.com/view/kelurahanloluutara/beranda' },
+    { no:11, title:'Moringa Palu',             members:['Intan Mutia Haniq','Moh Ahlul Bayd','Muhammad Haikal','Asyifa'],         url:'https://sites.google.com/view/moringapalu/beranda' },
+    { no:12, title:'Desa Sibalaya Utara',      members:['Sandi Salwa','Siti Amannah','Ananda Fathila'],                           url:'https://sites.google.com/view/desasibalayautara/beranda' },
+    { no:13, title:'Kecamatan Tawaeli',        members:['Vildas Anjelita Ayu. A','Shevty Kayla Novarthy','Rahma'],               url:'https://sites.google.com/view/kecamatantawaeli/beranda' },
+  ],
+  C: [
+    { no:1,  title:'Website Tugas Kelompok',   members:['Nur Aliya','Faturachman','Nabila'],                                      url:'https://sites.google.com/view/httpstugasweb/profil-kelompok' },
+    { no:2,  title:'Portofolio Mamboro Barat', members:['Silvy Yolanda Dupa','Alfiana Galuh P.',"Moh. Ma'ruf"],                  url:'https://sites.google.com/view/portofolio-mamboro-barat?usp=sharing' },
+    { no:3,  title:'Layanan BLT dan Bansos',   members:['Rajab Hidayat','Reza','Dwi Aulia Rahmawati'],                           url:'https://sites.google.com/view/layananbltdanbansos/beranda' },
+    { no:4,  title:'Portofolio Desa Labuan Lelea', members:['Ana Restika Putri','Serly Agustin Elfirianti','Ashila Anaka Hi. Laraga'], url:'https://sites.google.com/view/portofolio-desa-labuan-lelea/beranda' },
+    { no:5,  title:'Desa Jono Oge, Kab. Sigi', members:['Dina Rahmawati','Almayedia Elika Kasim','Risma Sy'],                   url:'https://sites.google.com/view/desa-jono-oge-kab-sigi/beranda' },
+    { no:6,  title:'Portofolio Kelurahan Lasoani', members:['Suci Pratiwi','Fatmawati Bandjau','Aryani'],                        url:'https://sites.google.com/view/portofoliokelurahanlasoani/beranda' },
+    { no:7,  title:'Digital Government',       members:['Riyanti K. Soyo','Meinda Eyren','Selviani'],                            url:'https://sites.google.com/view/digitalgovernmen/beranda' },
+    { no:8,  title:'Pantoloan Boya',           members:['Mawadah','Mohammad Nurul Falah','Adinda Meydi Wahyuni'],                url:'https://sites.google.com/view/pantoloanboya/beranda' },
+    { no:9,  title:'Prototipe Desa Watunonju', members:['Moh Aldi','Andrian Jiwono','Riyat Alfayeed'],                          url:'https://sites.google.com/view/prototipe-desawatunonju/beranda' },
+    { no:10, title:'Boya Mandiri',             members:['Fitria Salsabila','Agung Saputra','Marsya Melani'],                     url:'https://sites.google.com/view/boyamandiri/profil-kelompok' },
+  ]
+};
+
+// ── helpers ──────────────────────────────────────────────────────────────────
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+function shortUrl(url) {
+  try { return new URL(url).hostname.replace('sites.google.com','sites.google.com') + '…'; }
+  catch { return url.slice(0, 28) + '…'; }
+}
+
+const MONITOR_ICON = `<svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v1H6v2h12v-2h-2v-1h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></svg>`;
+const ARROW_ICON   = `<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10L10 2M10 2H5M10 2v5"/></svg>`;
+
+// ── render ────────────────────────────────────────────────────────────────────
+function cardHTML(p, kelas, idx) {
+  const circleClass = kelas === 'A' ? 'circle-a' : 'circle-c';
+  const membersHTML = p.members.map((m, i) =>
+    `<div class="member ${i===0?'lead':''}">
+       <span class="member-dot"></span>${esc(m)}
+     </div>`
+  ).join('');
+
+  return `
+  <article class="card" style="animation-delay:${Math.min(idx*0.05,0.45)}s">
+    <div class="screenshot">
+      <div class="screenshot-icon">${MONITOR_ICON}</div>
+      <span class="screenshot-lbl">Screenshot Website</span>
+    </div>
+    <div class="card-body">
+      <div class="card-meta">
+        <span class="card-num">Kelompok ${p.no}</span>
+        <span class="class-circle ${circleClass}">${kelas}</span>
+      </div>
+      <div class="card-title">${esc(p.title)}</div>
+      <div class="members">${membersHTML}</div>
+      <div class="card-footer">
+        <a href="${p.url}" target="_blank" rel="noopener" class="link-btn">
+          <span class="link-btn-text">${esc(shortUrl(p.url))}</span>
+          ${ARROW_ICON}
+        </a>
+      </div>
+    </div>
+  </article>`;
+}
+
+function colHTML(kelas, items) {
+  const badgeClass = kelas === 'A' ? 'badge-a' : 'badge-c';
+  const cardsHTML  = items.length
+    ? items.map((p, i) => cardHTML(p, kelas, i)).join('')
+    : `<div class="empty"><p>Tidak ditemukan</p><p>Coba kata kunci lain.</p></div>`;
+
+  return `
+  <div class="kelas-col">
+    <div class="col-header">
+      <span class="kelas-badge ${badgeClass}">Kelas ${kelas}</span>
+      <span class="col-count">${items.length} Kelompok</span>
+    </div>
+    <div class="cards-grid">${cardsHTML}</div>
+  </div>`;
+}
+
+function render() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+
+  const match = (p) => !q ||
+    p.title.toLowerCase().includes(q) ||
+    ('kelompok ' + p.no).includes(q) ||
+    p.members.some(m => m.toLowerCase().includes(q));
+
+  const filtA = DATA.A.filter(match);
+  const filtC = DATA.C.filter(match);
+  const total = filtA.length + filtC.length;
+
+  document.getElementById('activeCount').textContent = total;
+  document.getElementById('mainGrid').innerHTML =
+    colHTML('A', filtA) + colHTML('C', filtC);
+}
+
+render();
+</script>
+</body>
+</html>
