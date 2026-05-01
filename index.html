@@ -98,8 +98,9 @@ body {
   left: 12px; top: 50%;
   transform: translateY(-50%);
   color: var(--faint);
-  font-size: 16px;
   pointer-events: none;
+  display: flex;
+  align-items: center;
 }
 .search-input {
   width: 100%;
@@ -328,8 +329,8 @@ body {
 
 <!-- HERO -->
 <section class="hero">
-  <h1>Project-Based Learning Layanan Digital</h1>
-  <p>Kumpulan website layanan digital yang dikembangkan peserta kuliah Digital Government semester Genap 2025/2026 Prodi Ilmu Pemerintahan Universitas Tadulako</p>
+  <h1>Proyek Layanan Digital Mahasiswa</h1>
+  <p>Kumpulan website layanan digital yang dikembangkan peserta kuliah Digital Government</p>
 </section>
 
 <!-- STATS -->
@@ -359,7 +360,9 @@ body {
 <!-- SEARCH -->
 <div class="search-bar">
   <div class="search-wrap">
-    <span class="search-icon">⌕</span>
+    <span class="search-icon">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    </span>
     <input type="text" class="search-input" id="searchInput"
            placeholder="Cari nama anggota atau kelompok…" oninput="render()">
   </div>
@@ -373,12 +376,12 @@ body {
 // ── DATA ────────────────────────────────────────────────────────────────────
 const DATA = {
   A: [
-    { no:1,  title:'Palu Pi Smart',           members:['Yogi Potaka','Mutia Suci Lestari','Hikmah'],                              url:'https://sites.google.com/view/palupismart/portofolio/refleksi-kelompok' },
+    { no:1,  title:'Palu Pi Smart',           members:['Yogi Potaka'],                                                           url:'https://sites.google.com/view/palupismart/portofolio/refleksi-kelompok' },
     { no:2,  title:'Kelurahan Baru',           members:['Ni Ketut Andeni','Imam Zulabchri B.','Siti Sarah'],                      url:'https://sites.google.com/view/kelurahan-baru/halaman-muka' },
-    { no:3,  title:'Desa Kabobona',            members:['Suci Hikma Wati','Izzah Auliyah','Amanda'],                              url:'https://sites.google.com/view/desakabobona/profil-kelompok' },
+    { no:3,  title:'Desa Kabobona',            members:['B 401 24 002','B 401 24 021'],                                            url:'https://sites.google.com/view/desakabobona/profil-kelompok' },
     { no:4,  title:'Kelurahan Tanamodindi',    members:['Sabda Destiana','Zahwa Qairrunissa Budi','Zuhria Syaidah'],              url:'https://sites.google.com/view/kelurahan-tanamodindi/profil/profil-kelompok' },
     { no:5,  title:'Kelurahan Poboya',         members:['Mutiara','Aling',"Dinda Triana As'ad"],                                  url:'https://sites.google.com/view/kelurahanpoboya/kelompok' },
-    { no:6,  title:'Portofolio',                 members:['Zaskia Amalia','Bahrul Amin','Moh. Yasin Zulhamdi'],                     url:'https://sites.google.com/view/fixpaku/beranda' },
+    { no:6,  title:'Fix Paku',                 members:['Zaskia Amalia','Bahrul Amin','Moh. Yasin Zulhamdi'],                     url:'https://sites.google.com/view/fixpaku/beranda' },
     { no:7,  title:'Talise Valangguni',        members:['Habib Variq','Syarianti','Dimas Kurniawan'],                             url:'https://sites.google.com/view/talisevalangguni/portofolio/beranda' },
     { no:8,  title:'Desa Wani',                members:['Mery','Haikal T. Lamboka','Iqlima'],                                     url:'https://sites.google.com/view/desawani/beranda' },
     { no:9,  title:'Kelurahan Taiparamba',     members:['Miranti','Intan Audy','Sahara'],                                         url:'https://sites.google.com/view/kelurahan-taiparamba/kelompok' },
@@ -388,7 +391,7 @@ const DATA = {
     { no:13, title:'Kecamatan Tawaeli',        members:['Vildas Anjelita Ayu. A','Shevty Kayla Novarthy','Rahma'],               url:'https://sites.google.com/view/kecamatantawaeli/beranda' },
   ],
   C: [
-    { no:1,  title:'Portofolio',               members:['Nur Aliya','Faturachman','Nabila'],                                      url:'https://sites.google.com/view/httpstugasweb/profil-kelompok' },
+    { no:1,  title:'Website Tugas Kelompok',   members:['Nur Aliya','Faturachman','Nabila'],                                      url:'https://sites.google.com/view/httpstugasweb/profil-kelompok' },
     { no:2,  title:'Portofolio Mamboro Barat', members:['Silvy Yolanda Dupa','Alfiana Galuh P.',"Moh. Ma'ruf"],                  url:'https://sites.google.com/view/portofolio-mamboro-barat?usp=sharing' },
     { no:3,  title:'Layanan BLT dan Bansos',   members:['Rajab Hidayat','Reza','Dwi Aulia Rahmawati'],                           url:'https://sites.google.com/view/layananbltdanbansos/beranda' },
     { no:4,  title:'Portofolio Desa Labuan Lelea', members:['Ana Restika Putri','Serly Agustin Elfirianti','Ashila Anaka Hi. Laraga'], url:'https://sites.google.com/view/portofolio-desa-labuan-lelea/beranda' },
@@ -398,7 +401,6 @@ const DATA = {
     { no:8,  title:'Pantoloan Boya',           members:['Mawadah','Mohammad Nurul Falah','Adinda Meydi Wahyuni'],                url:'https://sites.google.com/view/pantoloanboya/beranda' },
     { no:9,  title:'Prototipe Desa Watunonju', members:['Moh Aldi','Andrian Jiwono','Riyat Alfayeed'],                          url:'https://sites.google.com/view/prototipe-desawatunonju/beranda' },
     { no:10, title:'Boya Mandiri',             members:['Fitria Salsabila','Agung Saputra','Marsya Melani'],                     url:'https://sites.google.com/view/boyamandiri/profil-kelompok' },
-    { no:11, title:'Layana Indah',             members:['Nuri Nurbaina. A,'Muhammad Farid','Alisha Fadhilah'],                   url:'https://sites.google.com/view/portofoliolayanaindah/beranda'],
   ]
 };
 
@@ -406,18 +408,21 @@ const DATA = {
 const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
 function shortUrl(url) {
-  try { return new URL(url).hostname.replace('sites.google.com','sites.google.com') + '…'; }
-  catch { return url.slice(0, 28) + '…'; }
+  try {
+    const u = new URL(url);
+    const path = u.pathname.replace(/\/$/, '').split('/').filter(Boolean).pop();
+    return path ? path : u.hostname;
+  } catch { return url.slice(0, 28) + '…'; }
 }
 
-const MONITOR_ICON = `<svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v1H6v2h12v-2h-2v-1h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></svg>`;
-const ARROW_ICON   = `<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10L10 2M10 2H5M10 2v5"/></svg>`;
+const MONITOR_ICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v1H6v2h12v-2h-2v-1h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></svg>`;
+const ARROW_ICON   = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10L10 2M10 2H5M10 2v5"/></svg>`;
 
 // ── render ────────────────────────────────────────────────────────────────────
 function cardHTML(p, kelas, idx) {
   const circleClass = kelas === 'A' ? 'circle-a' : 'circle-c';
-  const membersHTML = p.members.map((m, i) =>
-    `<div class="member ${i===0?'lead':''}">
+  const membersHTML = p.members.map(m =>
+    `<div class="member">
        <span class="member-dot"></span>${esc(m)}
      </div>`
   ).join('');
